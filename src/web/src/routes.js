@@ -13,6 +13,7 @@ const PathwayPage = () => import("./pages/Pathway");
 const SubjectExplorerPage = () => import("./pages/SubjectExplorer");
 const NotFoundPage = () => import("./pages/NotFound");
 const FinalExamScheduler = () => import("./pages/FinalExamScheduler");
+const CourseReviewsPage = () => import("./pages/CourseReviewsPage");
 
 var router = new VueRouter({
   routes: [
@@ -94,6 +95,12 @@ var router = new VueRouter({
       component: NotFoundPage,
       name: "NotFound",
     },
+    {
+        path: "/explore/:subject/:course/reviews",
+        component: CourseReviewsPage,
+        name: "CourseReviews",
+        props: true,
+      }
   ],
   mode: "history",
 });
