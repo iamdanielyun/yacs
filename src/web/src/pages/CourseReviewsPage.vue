@@ -40,6 +40,21 @@
         <button @click="fetchReviews()" class="btn btn-primary">Fetch Reviews</button>
         <button @click="submitReview()" class="btn btn-success">Submit Review</button>
         <button @click="clearForm()" class="btn btn-danger">Clear Form</button>
+
+        <!-- Display Reviews -->
+        <div v-if="reviews.length > 0" class="mt-4">
+            <h3>Reviews for {{ courseCode }}</h3>
+            <ul class="list-group">
+            <li v-for="(review, index) in reviews" :key="index" class="list-group-item">
+                <strong>Rating:</strong> {{ review.rating }}/5<br />
+                <strong>Review:</strong> {{ review.text }}<br />
+                <small class="text-muted">Submitted on: {{ review.date }}</small>
+            </li>
+            </ul>
+        </div>
+        <div v-else class="mt-4">
+            <p>No reviews found for this course.</p>
+        </div>
     </section>
   </b-container>
 </template>
