@@ -58,3 +58,32 @@
     </section>
   </b-container>
 </template>
+
+<style lang="scss">
+    $primary: #007bff;
+    $success: #28a745;
+    $danger: #dc3545;
+
+    .btn-primary {
+    border-radius: 0;
+    padding: 10px 20px;
+    }
+
+    .btn-success {
+    border-radius: 0;
+    padding: 10px 20px;
+    }
+
+    .btn-danger {
+    border-radius: 0;
+    padding: 10px 20px;
+    }
+
+    .success {
+    animation: success ease-in-out 2s;
+    }
+
+    .fail {
+        //finidh later
+    }
+</style>
