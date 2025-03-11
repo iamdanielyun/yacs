@@ -98,8 +98,28 @@
             //Actually post/submite the reviews
             async submitReview() {
                 if (!this.courseCode || !this.reviewText || !this.rating) {
-                    
+                    this.result = "Please fill out all fields.";
+                    return;
                 }
+                try {
+                    const review = {
+                        courseCode: this.courseCode,
+                        text: this.reviewText,
+                        rating: this.rating,
+                        date: new Date().toLocaleDateString(),
+                    };
+                    const response = await submitCourseReview(review);
+                    this.result = "Review submitted successfully!";
+                    this.clearForm();
+                    this.fetchReviews(); // Refresh the reviews list
+                } catch (error) {
+                    this.result = "Failed to submit review.";
+                    console.error(error);
+                },
+                clearForm() {
+                    this.reviewText = "";
+                    this.rating = 5;
+                },
             }
         }
     }
