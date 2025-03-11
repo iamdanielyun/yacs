@@ -59,6 +59,34 @@
   </b-container>
 </template>
 
+<script>
+    import {
+        fetchCourseReviews,
+        submitCourseReview,
+    } from "@/services/CourseService";
+
+    export default {
+        name: "CourseReviewsPage",
+        data() {
+            return {
+            courseCode: "",
+            reviewText: "",
+            rating: 5,
+            result: "",
+            reviews: [],
+            };
+        },
+
+        methods: {
+            //Fill out more methods
+        }
+    }
+</script>
+
+
+
+
+
 <style lang="scss">
     $primary: #007bff;
     $success: #28a745;
