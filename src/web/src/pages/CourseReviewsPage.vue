@@ -78,7 +78,29 @@
         },
 
         methods: {
-            //Fill out more methods
+
+            //Get the reviews
+            async fetchReviews() {
+                if (!this.courseCode) {
+                    this.result = "Please enter a course code.";
+                    return;
+                }
+                try {
+                    const response = await fetchCourseReviews(this.courseCode);
+                    this.reviews = response.data;
+                    this.result = `Fetched ${this.reviews.length} reviews for ${this.courseCode}.`;
+                } catch (error) {
+                    this.result = "Failed to fetch reviews.";
+                    console.error(error);
+                }
+            },
+
+            //Actually post/submite the reviews
+            async submitReview() {
+                if (!this.courseCode || !this.reviewText || !this.rating) {
+                    
+                }
+            }
         }
     }
 </script>
