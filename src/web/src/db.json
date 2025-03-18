@@ -1,0 +1,27 @@
+{
+    "courses": [
+      {
+        "id": "CSCI-1200",
+        "reviews": [
+          {
+            "id": 1,
+            "text": "Great course! Very informative.",
+            "rating": 5,
+            "date": "2023-10-01"
+          },
+          {
+            "id": 2,
+            "text": "The workload was SO heavy!",
+            "rating": 3,
+            "date": "2023-09-25"
+          },
+          {
+            "id": 3,
+            "text": "Lot of work but pretty intesting once you start getting it",
+            "rating": 4,
+            "date": "2024-09-25"
+          }
+        ]
+      }
+    ]
+  }
