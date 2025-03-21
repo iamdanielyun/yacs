@@ -19,7 +19,64 @@
             "id": 3,
             "text": "Lot of work but pretty intesting once you start getting it",
             "rating": 4,
-            "date": "2024-09-25"
+            "date": "2023-09-25"
+          }
+        ]
+      },
+      {
+        "id": "MATH-2300",
+        "reviews": [
+          {
+            "id": 4,
+            "text": "The professor explains concepts clearly.",
+            "rating": 4,
+            "date": "2023-09-20"
+          },
+          {
+            "id": 5,
+            "text": "Definitely pay attention in class lol",
+            "rating": 2,
+            "date": "2023-09-22"
+          }
+        ]
+      },
+      {
+        "id": "PHYS-1100",
+        "reviews": [
+          {
+            "id": 6,
+            "text": "Labs are fun and engaging.",
+            "rating": 5,
+            "date": "2023-09-18"
+          },
+          {
+            "id": 7,
+            "text": "The lectures are a bit dry.",
+            "rating": 2,
+            "date": "2023-09-19"
+          },
+          {
+            "id": 8,
+            "text": "Homeworks can be brutal sometimes",
+            "rating": 2,
+            "date": "2023-09-19"
+          }
+        ]
+      },
+      {
+        "id": "CHEM-1200",
+        "reviews": [
+          {
+            "id": 9,
+            "text": "The course is well-organized.",
+            "rating": 4,
+            "date": "2023-09-15"
+          },
+          {
+            "id": 10,
+            "text": "The exams are very difficult.",
+            "rating": 2,
+            "date": "2023-09-16"
           }
         ]
       }
