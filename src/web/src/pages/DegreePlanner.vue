@@ -14,7 +14,22 @@
 
         <!-- Progress Visualization -->
         <div v-if="selectedDegree">
-            <!-- complete laterr -->
+            <h3>{{ getDegreeName(selectedDegree) }}</h3>
+            <div class="progress mb-3">
+                <div 
+                    class="progress-bar" 
+                    :style="{ width: progressPercentage + '%' }"
+                >
+                    {{ progressPercentage }}% Complete
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Requirements -->
+        <div class="card mb-3" v-for="req in requirements" :key="req.category">
+            <div class="card-header">
+                <h5>{{ req.category }}</h5>
+            </div>
         </div>
     </b-container>
 </template>
