@@ -23,13 +23,29 @@
                     {{ progressPercentage }}% Complete
                 </div>
             </div>
-        </div>
 
-        <!-- Course Requirements -->
-        <div class="card mb-3" v-for="req in requirements" :key="req.category">
-            <div class="card-header">
-                <h5>{{ req.category }}</h5>
+            <!-- Course Requirements -->
+            <div class="card mb-3" v-for="req in requirements" :key="req.category">
+                <div class="card-header">
+                    <h5>{{ req.category }}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li 
+                        class="list-group-item" 
+                        v-for="course in req.courses" 
+                        :key="course.code"
+                        :class="{ 'text-success': isCourseCompleted(course.code) }"
+                    >
+                        <input 
+                            type="checkbox" 
+                            v-model="completedCourses" 
+                            :value="course.code"
+                        >
+                        {{ course.code }}: {{ course.name }}
+                    </li>
+                </ul>
             </div>
+            <button @click="savePlanner()" class="btn btn-success">Save Progress</button>
         </div>
     </b-container>
 </template>
