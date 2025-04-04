@@ -49,3 +49,15 @@
         </div>
     </b-container>
 </template>
+
+<script>
+import { 
+  fetchDegreeRequirements, 
+  fetchDegreePlanner, 
+  saveDegreePlanner 
+} from "@/services/CoursePlannerService";
+
+export default {
+    //...
+};
+</script>
