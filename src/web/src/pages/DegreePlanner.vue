@@ -58,6 +58,24 @@ import {
 } from "@/services/CoursePlannerService";
 
 export default {
-    //...
+    name: "DegreePlanner",
+    data() {
+        return {
+        degrees: [
+            { id: "cs-bs", name: "Computer Science (BS)" },
+            { id: "math-ba", name: "Mathematics (BA)" },
+        ],
+        selectedDegree: null,
+        requirements: [],
+        completedCourses: [],
+        };
+    },
+    computed: {
+    progressPercentage() {
+      if (!this.requirements.length) return 0;
+      const total = this.requirements.flatMap(req => req.courses).length;
+      return Math.round((this.completedCourses.length / total) * 100);
+    }
+  },
 };
 </script>
