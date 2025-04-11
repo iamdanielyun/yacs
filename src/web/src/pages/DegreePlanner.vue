@@ -175,4 +175,30 @@ export default {
 .requirement-card:hover {
   transform: translateY(-2px);
 }
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+/* Course List Items */
+.course-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-left: none;
+  border-right: none;
+  transition: background-color 0.2s ease;
+}
+
+.course-item:hover {
+  background-color: #f1f1f1;
+}
+
+.course-item input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
 </style>
