@@ -151,4 +151,28 @@ export default {
   font-weight: bold;
   color: white;
 }
+
+/* Dynamic progress bar colors based on completion percentage */
+.progress-bar.low {
+  background-color: #dc3545; /* Red for < 30% */
+}
+.progress-bar.medium {
+  background-color: #ffc107; /* Yellow for 30-70% */
+}
+.progress-bar.high {
+  background-color: #28a745; /* Green for > 70% */
+}
+
+/* Requirement Cards */
+.requirement-card {
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.requirement-card:hover {
+  transform: translateY(-2px);
+}
 </style>
