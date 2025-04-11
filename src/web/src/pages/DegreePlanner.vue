@@ -77,5 +77,30 @@ export default {
       return Math.round((this.completedCourses.length / total) * 100);
     }
   },
+  methods: {
+    async loadRequirements() {
+      this.requirements = await fetchDegreeRequirements(this.selectedDegree);
+      const planner = await fetchDegreePlanner("current-user-id");
+      this.completedCourses = planner?.completedCourses || [];
+    },
+    isCourseCompleted(code) {
+      return this.completedCourses.includes(code);
+    },
+    async savePlanner() {
+      await saveDegreePlanner("current-user-id", {
+        degree: this.selectedDegree,
+        completedCourses: this.completedCourses,
+      });
+      alert("Progress saved!");
+    },
+    getDegreeName(id) {
+      return this.degrees.find(d => d.id === id)?.name || "";
+    },
+  },
+  watch: {
+    selectedDegree() {
+      this.loadRequirements();
+    }
+  }
 };
 </script>
