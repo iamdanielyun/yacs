@@ -15,6 +15,26 @@
           placeholder="Enter professor name or department"
         />
       </div>
+      <div v-if="searchResults.length" class="search-results">
+          <div 
+            v-for="prof in searchResults" 
+            :key="prof.id" 
+            class="search-result-item"
+            @click="selectProfessor(prof)"
+          >
+            {{ prof.name }} - {{ prof.department }}
+          </div>
+      </div>
+
+    <!-- Selected Professor Display -->
+      <div v-if="selectedProfessor" class="professor-info">
+        <h3>{{ selectedProfessor.name }}</h3>
+        <p><strong>Department:</strong> {{ selectedProfessor.department }}</p>
+        
+        <!-- Overall Ratings -->
+        <!-- TODO -->
+
+      </div>
     </section>
   </b-container>
 </template>
