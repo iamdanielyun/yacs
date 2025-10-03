@@ -32,7 +32,18 @@
         <p><strong>Department:</strong> {{ selectedProfessor.department }}</p>
         
         <!-- Overall Ratings -->
-        <!-- TODO -->
+        <div class="ratings-summary">
+          <div class="rating-item">
+            <span>Overall: </span>
+            <star-rating :rating="overallRating" :read-only="true" />
+            <span>({{ totalReviews }} reviews)</span>
+          </div>
+          <div class="rating-breakdown">
+            <div>Teaching Quality: {{ breakdown.teaching }}/5</div>
+            <div>Grading Fairness: {{ breakdown.grading }}/5</div>
+            <div>Accessibility: {{ breakdown.accessibility }}/5</div>
+          </div>
+        </div>
 
       </div>
     </section>
