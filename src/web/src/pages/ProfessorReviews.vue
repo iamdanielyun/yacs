@@ -45,6 +45,23 @@
           </div>
         </div>
 
+        <!-- Review Form -->
+        <div class="review-form">
+          <h4>Write a Review</h4>
+          <div class="form-group">
+            <label>Teaching Quality:</label>
+            <star-rating v-model="newReview.teaching" />
+          </div>
+          <div class="form-group">
+            <label>Grading Fairness:</label>
+            <star-rating v-model="newReview.grading" />
+          </div>
+          <div class="form-group">
+            <label>Accessibility:</label>
+            <star-rating v-model="newReview.accessibility" />
+          </div>
+          <!-- Add submit button or something similar here -->
+        </div>
       </div>
     </section>
   </b-container>
