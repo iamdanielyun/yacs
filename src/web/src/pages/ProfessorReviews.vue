@@ -60,7 +60,17 @@
             <label>Accessibility:</label>
             <star-rating v-model="newReview.accessibility" />
           </div>
-          <!-- Add submit button or something similar here -->
+          <div class="form-group">
+            <label>Review:</label>
+            <textarea 
+              v-model="newReview.text" 
+              class="form-control" 
+              rows="4" 
+              placeholder="Share your experience with this professor..."
+            />
+          </div>
+          <button @click="submitReview" class="btn btn-success">Submit Review</button>
+        </div>
         </div>
       </div>
     </section>
