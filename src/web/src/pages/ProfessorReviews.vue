@@ -71,6 +71,24 @@
           </div>
           <button @click="submitReview" class="btn btn-success">Submit Review</button>
         </div>
+        
+        <!-- Reviews List -->
+        <div class="reviews-list">
+          <h4>Student Reviews</h4>
+          <div 
+            v-for="review in professorReviews" 
+            :key="review.id" 
+            class="review-card"
+          >
+            <div class="review-header">
+              <star-rating :rating="calculateOverall(review)" :read-only="true" />
+              <span class="review-date">{{ review.date }}</span>
+            </div>
+            <p class="review-text">{{ review.text }}</p>
+            <div class="review-breakdown">
+              <small>Teaching: {{ review.teaching }}/5 • Grading: {{ review.grading }}/5 • Accessibility: {{ review.accessibility }}/5</small>
+            </div>
+          </div>
         </div>
       </div>
     </section>
