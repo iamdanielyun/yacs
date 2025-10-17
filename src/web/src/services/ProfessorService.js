@@ -4,18 +4,30 @@ const client = axios.create({
   baseURL: "/api",
 });
 
-// Fetch professor ratings and reviews
 export const fetchProfessorReviews = (professorId) => 
   client.get(`/professors/${professorId}/reviews`);
 
-// Submit a professor review
-export const submitProfessorReview = (review) => 
-  client.post(`/professors/${professorId}/reviews`, review);
+export const submitProfessorReview = (reviewData) => 
+  client.post(`/professors/${reviewData.professorId}/reviews`, reviewData);
 
-// Get professor overall ratings
-export const fetchProfessorRatings = (professorId) => 
-  client.get(`/professors/${professorId}/ratings`);
-
-// Search professors by name/department
 export const searchProfessors = (query) => 
-  client.get(`/professors/search?q=${query}`);
+  client.get(`/professors/search?q=${encodeURIComponent(query)}`);
+
+export const fetchProfessorCourses = (professorId) => 
+  client.get(`/professors/${professorId}/courses`);
+
+export const voteHelpful = (reviewId) => 
+  client.post(`/reviews/${reviewId}/helpful`);
+
+export const reportReview = (reviewId, reason) => 
+  client.post(`/reviews/${reviewId}/report`, { reason });
+
+export const fetchProfessorDetails = (professorId) => 
+  client.get(`/professors/${professorId}`);
+
+export const fetchTopRatedProfessors = (department = null) => {
+  const url = department ? 
+    `/professors/top-rated?department=${department}` : 
+    '/professors/top-rated';
+  return client.get(url);
+};
