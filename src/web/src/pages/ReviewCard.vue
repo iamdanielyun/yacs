@@ -18,6 +18,31 @@
           <span class="rating-number">{{ overallRating.toFixed(1) }}</span>
         </div>
       </div>
+      
+      <div class="review-breakdown">
+        <span>Teaching: {{ review.teaching }}/5</span>
+        <span>Grading: {{ review.grading }}/5</span>
+        <span>Accessibility: {{ review.accessibility }}/5</span>
+        <span>Difficulty: {{ review.difficulty }}/5</span>
+      </div>
+      
+      <p class="review-text">{{ review.text }}</p>
+      
+      <div class="review-actions">
+        <button 
+          @click="voteHelpful" 
+          class="btn btn-sm btn-outline-primary"
+          :class="{ 'btn-primary': review.userVotedHelpful }"
+          :disabled="review.userVotedHelpful"
+        >
+          <i class="fas fa-thumbs-up"></i>
+          Helpful ({{ review.helpfulCount || 0 }})
+        </button>
+        <button @click="reportReview" class="btn btn-sm btn-outline-secondary">
+          <i class="fas fa-flag"></i>
+          Report
+        </button>
+      </div>
     </div>
   </div>
 </template>
