@@ -67,7 +67,38 @@ export default {
     }
   },
   methods: {
-        //fill this out 
+    formatDate(dateString) {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    },
+    voteHelpful() {
+      this.$emit('helpful-vote', this.review.id);
+    },
+    reportReview() {
+      this.$bvModal.msgBoxConfirm('Report this review as inappropriate?', {
+        title: 'Report Review',
+        size: 'sm',
+        buttonSize: 'sm',
+        okVariant: 'danger',
+        okTitle: 'Report',
+        cancelTitle: 'Cancel',
+        footerClass: 'p-2',
+        hideHeaderClose: false,
+        centered: true
+      }).then(value => {
+        if (value) {
+          // Handle report
+          this.$bvToast.toast('Review reported successfully', {
+            title: 'Report Submitted',
+            variant: 'success',
+            solid: true
+          });
+        }
+      });
+    }
   }
 };
 </script>
