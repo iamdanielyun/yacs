@@ -46,3 +46,28 @@
     </div>
   </div>
 </template>
+
+<script>
+import StarRating from "@/components/StarRating.vue";
+
+export default {
+  name: "ReviewCard",
+  components: {
+    StarRating
+  },
+  props: {
+    review: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    overallRating() {
+      return (this.review.teaching + this.review.grading + this.review.accessibility) / 3;
+    }
+  },
+  methods: {
+        //fill this out 
+  }
+};
+</script>
