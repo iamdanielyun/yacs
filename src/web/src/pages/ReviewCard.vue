@@ -102,3 +102,34 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.review-card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reviewer {
+  font-weight: bold;
+  color: #495057;
+}
+
+.review-date, .review-course {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+</style>
