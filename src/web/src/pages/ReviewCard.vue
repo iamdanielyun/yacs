@@ -132,4 +132,38 @@ export default {
   color: #6c757d;
 }
 
+.review-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rating-number {
+  font-weight: bold;
+  color: #ffc107;
+}
+
+.review-breakdown {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.review-text {
+  line-height: 1.5;
+  margin-bottom: 15px;
+  white-space: pre-wrap;
+}
+
+.review-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+}
 </style>
