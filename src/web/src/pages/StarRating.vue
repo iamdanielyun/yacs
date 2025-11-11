@@ -69,3 +69,71 @@
     </span>
   </div>
 </template>
+
+<script>
+export default {
+  name: "StarRating",
+  props: {
+    // Current rating value
+    rating: {
+      type: [Number, String],
+      default: 0
+    },
+    // Maximum number of stars
+    maxStars: {
+      type: Number,
+      default: 5
+    },
+    // Whether the rating is read-only
+    readOnly: {
+      type: Boolean,
+      default: false
+    },
+    // Whether to show the numeric rating
+    showRating: {
+      type: Boolean,
+      default: true
+    },
+    // Size of stars in pixels
+    starSize: {
+      type: Number,
+      default: 20
+    },
+    // Increment step (0.5 for half stars, 1 for whole stars)
+    increment: {
+      type: Number,
+      default: 1
+    },
+    // Whether to show partial star fills for decimal ratings
+    showPartialFill: {
+      type: Boolean,
+      default: true
+    },
+    // Active color for filled stars
+    activeColor: {
+      type: String,
+      default: "#ffc107" // Bootstrap warning color (yellow)
+    },
+    // Inactive color for empty stars
+    inactiveColor: {
+      type: String,
+      default: "#e4e5e9" // Light gray
+    },
+    // Name for form input
+    name: {
+      type: String,
+      default: "rating"
+    },
+    // Text color for rating display
+    textColor: {
+      type: String,
+      default: "#6c757d" // Bootstrap secondary color
+    },
+    // Custom CSS class for rating text
+    ratingTextClass: {
+      type: String,
+      default: ""
+    }
+  },
+};
+</script>
