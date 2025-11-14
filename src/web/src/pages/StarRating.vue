@@ -135,5 +135,55 @@ export default {
       default: ""
     }
   },
+    data() {
+        return {
+        internalRating: 0,
+        hoverRating: 0,
+        isHovering: false
+        };
+    },
+    computed: {
+        displayRating() {
+        // Format the rating based on increment
+        if (this.increment === 1) {
+            return Math.round(this.internalRating * 10) / 10; // One decimal place
+        } else {
+            return this.internalRating.toFixed(1); // Always one decimal for half-stars
+        }
+        },
+        currentDisplayRating() {
+        return this.isHovering ? this.hoverRating : this.internalRating;
+        }
+    },
+    watch: {
+        rating: {
+        immediate: true,
+        handler(newVal) {
+            this.internalRating = parseFloat(newVal) || 0;
+        }
+        }
+    },
+    methods: {
+        // Set the rating when a star is clicked
+        setRating(star) {
+        if (this.readOnly) return;
+        
+        let newRating;
+        
+        if (this.increment === 0.5) {
+            // For half-star increments
+            const currentStarState = this.getStarFill(star);
+            if (currentStarState === 'full') {
+            newRating = star - 0.5;
+            } else {
+            newRating = star;
+            }
+        } else {
+            // For whole-star increments
+            newRating = star;
+        }
+        },
+       
+    },
 };
 </script>
