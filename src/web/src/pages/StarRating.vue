@@ -182,8 +182,69 @@ export default {
             // For whole-star increments
             newRating = star;
         }
+        
+        this.internalRating = newRating;
+        this.$emit('update:rating', newRating);
+        this.$emit('rating-selected', newRating);
+        this.$emit('input', newRating); // For v-model support
         },
-       
+        
+        // Handle hover effects
+        setHoverRating(star) {
+        if (this.readOnly) return;
+        this.hoverRating = star;
+        this.isHovering = true;
+        },
+        
+        resetHoverRating() {
+        if (this.readOnly) return;
+        this.hoverRating = 0;
+        this.isHovering = false;
+        },
+        
+        // Determine star fill state
+        getStarFill(star) {
+        const rating = this.currentDisplayRating;
+        
+        if (this.increment === 0.5) {
+            // Half-star logic
+            if (rating >= star) return 'full';
+            if (rating >= star - 0.5) return 'partial';
+            return 'empty';
+        } else {
+            // Whole-star logic
+            return rating >= star ? 'full' : 'empty';
+        }
+        },
+        
+        // Calculate partial fill width for decimal ratings
+        getPartialFillWidth(star) {
+        const rating = this.currentDisplayRating;
+        const decimalPart = rating - (star - 1);
+        return Math.max(0, Math.min(100, decimalPart * 100));
+        },
+        
+        // Get CSS classes for each star
+        getStarClass(star) {
+        const fillState = this.getStarFill(star);
+        const classes = [];
+        
+        classes.push(`star-${fillState}`);
+        
+        if (!this.readOnly) {
+            classes.push('interactive');
+            
+            if (this.isHovering && this.hoverRating >= star) {
+            classes.push('hover');
+            }
+        }
+        
+        return classes;
+        }
     },
+    mounted() {
+        // Initialize with prop value
+        this.internalRating = parseFloat(this.rating) || 0;
+    }
 };
 </script>
