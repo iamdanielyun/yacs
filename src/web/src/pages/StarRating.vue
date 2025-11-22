@@ -248,3 +248,56 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.stars-container {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.star {
+  position: relative;
+  width: v-bind(starSize + 'px');
+  height: v-bind(starSize + 'px');
+  cursor: v-bind(readOnly ? 'default' : 'pointer');
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star.interactive:hover {
+  transform: scale(1.1);
+}
+
+.star.hover {
+  filter: brightness(1.2);
+}
+
+/* Star fill states */
+.star-empty svg {
+  fill: v-bind(inactiveColor);
+  stroke: v-bind(inactiveColor);
+}
+
+.star-full svg {
+  fill: v-bind(activeColor);
+  stroke: v-bind(activeColor);
+}
+
+.star-partial {
+  position: relative;
+}
+
+.star-partial svg {
+  fill: v-bind(inactiveColor);
+  stroke: v-bind(inactiveColor);
+}
+</style>
