@@ -4,6 +4,40 @@ const client = axios.create({
   baseURL: "/api",
 });
 
+// Calculate average ratings for a professor
+export const calculateProfessorRatings = (reviews) => {
+  if (!reviews || reviews.length === 0) {
+    return {
+      overall: 0,
+      teaching: 0,
+      grading: 0,
+      accessibility: 0,
+      difficulty: 0,
+      totalReviews: 0
+    };
+  }
+
+  const totals = reviews.reduce((acc, review) => {
+    acc.teaching += review.teaching;
+    acc.grading += review.grading;
+    acc.accessibility += review.accessibility;
+    acc.difficulty += review.difficulty;
+    return acc;
+  }, { teaching: 0, grading: 0, accessibility: 0, difficulty: 0 });
+
+  const count = reviews.length;
+  
+  return {
+    overall: (totals.teaching + totals.grading + totals.accessibility) / (3 * count),
+    teaching: totals.teaching / count,
+    grading: totals.grading / count,
+    accessibility: totals.accessibility / count,
+    difficulty: totals.difficulty / count,
+    totalReviews: count
+  };
+};
+
+// Existing professor service functions
 export const fetchProfessorReviews = (professorId) => 
   client.get(`/professors/${professorId}/reviews`);
 
