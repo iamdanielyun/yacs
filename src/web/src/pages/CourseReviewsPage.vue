@@ -11,35 +11,67 @@
             id="courseCode"
             placeholder="Enter course code (e.g., CSCI-1200)"
         />
+
         </div>
-        <div class="form-group">
+        <!-- Display average rating if reviews exist -->
+        <div v-if="reviews.length > 0" class="average-rating mb-4">
+            <h4>Average Rating</h4>
+            <div class="d-flex align-items-center">
+            <star-rating 
+                :rating="averageRating" 
+                :read-only="true"
+                :star-size="30"
+                :show-rating="true"
+                rating-text-class="average-rating-text"
+            />
+            <span class="ml-3 rating-count">({{ reviews.length }} reviews)</span>
+            </div>
+        </div>
+
+        <!-- Review Form -->
+      <div class="review-form card mb-4">
+        <div class="card-body">
+          <h4 class="card-title">Write a Review</h4>
+          
+          <div class="form-group">
+            <label>Your Rating:</label>
+            <star-rating 
+              v-model="rating"
+              :increment="1"
+              :star-size="30"
+              :show-rating="true"
+              active-color="#007bff"
+              @rating-selected="onRatingSelected"
+            />
+          </div>
+          
+          <div class="form-group">
             <label for="reviewText">Your Review:</label>
             <textarea
-                v-model="reviewText"
-                class="form-control"
-                id="reviewText"
-                placeholder="Write your review here..."
-                rows="4"
-            >
-            </textarea>
-        </div>
-        <div class="form-group">
-            <label for="rating">Rating:</label>
-            <select v-model="rating" class="form-control" id="rating">
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Very Good</option>
-            <option value="3">3 - Good</option>
-            <option value="2">2 - Fair</option>
-            <option value="1">1 - Poor</option>
-            </select>
-        </div>
-        <div class="form-group">
+              v-model="reviewText"
+              class="form-control"
+              id="reviewText"
+              placeholder="Write your review here..."
+              rows="4"
+              maxlength="1000"
+            ></textarea>
+            <div class="text-right text-muted small mt-1">
+              {{ reviewText.length }}/1000 characters
+            </div>
+          </div>
+          
+          <div class="form-group">
             <label for="result">Result:</label>
-            <p id="result">{{ result }}</p>
+            <p id="result" class="result-message">{{ result }}</p>
+          </div>
+          
+          <div class="form-buttons">
+            <button @click="fetchReviews()" class="btn btn-primary">Fetch Reviews</button>
+            <button @click="submitReview()" class="btn btn-success">Submit Review</button>
+            <button @click="clearForm()" class="btn btn-danger">Clear Form</button>
+          </div>
         </div>
-        <button @click="fetchReviews()" class="btn btn-primary">Fetch Reviews</button>
-        <button @click="submitReview()" class="btn btn-success">Submit Review</button>
-        <button @click="clearForm()" class="btn btn-danger">Clear Form</button>
+      </div>
 
         <!-- Display Reviews -->
         <div v-if="reviews.length > 0" class="mt-4">
