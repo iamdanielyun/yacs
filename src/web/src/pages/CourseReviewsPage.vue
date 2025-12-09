@@ -191,6 +191,60 @@ export default {
         console.error(error);
       }
     },
+    onRatingSelected(rating) {
+      this.rating = rating;
+    },
+    async submitReview() {
+      if (!this.courseCode || !this.reviewText || this.rating === 0) {
+        this.result = "Please fill out all fields and select a rating.";
+        return;
+      }
+      
+      if (this.reviewText.length < 10) {
+        this.result = "Review text must be at least 10 characters.";
+        return;
+      }
+      
+      try {
+        const review = {
+          courseCode: this.courseCode,
+          text: this.reviewText,
+          rating: this.rating,
+          date: new Date().toLocaleDateString(),
+        };
+        const response = await submitCourseReview(review);
+        this.result = "Review submitted successfully!";
+        this.clearForm();
+        this.fetchReviews(); // Refresh the reviews list
+      } catch (error) {
+        this.result = "Failed to submit review: " + (error.message || "Unknown error");
+        console.error(error);
+      }
+    },
+    clearForm() {
+      this.reviewText = "";
+      this.rating = 0; // Reset to 0 stars
+    },
+    async voteHelpful(reviewId) {
+      if (this.helpfulVotes.has(reviewId)) {
+        return; // Already voted
+      }
+      
+      try {
+        await voteHelpfulService(reviewId);
+        
+        // Update local state
+        const review = this.reviews.find(r => r.id === reviewId);
+        if (review) {
+          review.helpfulCount = (review.helpfulCount || 0) + 1;
+          review.userVotedHelpful = true;
+          this.helpfulVotes.add(reviewId);
+        }
+      } catch (error) {
+        console.error("Failed to vote helpful:", error);
+        this.result = "Failed to vote helpful. Please try again.";
+      }
+    }
   }
 };
 </script>
