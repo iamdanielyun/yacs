@@ -134,69 +134,65 @@
 </template>
 
 <script>
-    import {
-        fetchCourseReviews,
-        submitCourseReview,
-    } from "@/services/CourseService";
+import {
+  fetchCourseReviews,
+  submitCourseReview,
+  voteHelpful as voteHelpfulService
+} from "@/services/CourseService";
+import StarRating from "@/components/StarRating.vue";
 
-    export default {
-        name: "CourseReviewsPage",
-        data() {
-            return {
-            courseCode: "",
-            reviewText: "",
-            rating: 5,
-            result: "",
-            reviews: [],
-            };
-        },
-
-        methods: {
-
-            //Get the reviews
-            async fetchReviews() {
-                if (!this.courseCode) {
-                    this.result = "Please enter a course code.";
-                    return;
-                }
-                try {
-                    const response = await fetchCourseReviews(this.courseCode);
-                    this.reviews = response.data;
-                    this.result = `Fetched ${this.reviews.length} reviews for ${this.courseCode}.`;
-                } catch (error) {
-                    this.result = "Failed to fetch reviews.";
-                    console.error(error);
-                }
-            },
-
-            //Actually post/submite the reviews
-            async submitReview() {
-                if (!this.courseCode || !this.reviewText || !this.rating) {
-                    this.result = "Please fill out all fields.";
-                    return;
-                }
-                try {
-                    const review = {
-                        courseCode: this.courseCode,
-                        text: this.reviewText,
-                        rating: this.rating,
-                        date: new Date().toLocaleDateString(),
-                    };
-                    const response = await submitCourseReview(review);
-                    this.result = "Review submitted successfully!";
-                    this.clearForm();
-                    this.fetchReviews(); // Refresh the reviews list
-                } catch (error) {
-                    this.result = "Failed to submit review.";
-                    console.error(error);
-                },
-                clearForm() {
-                    this.reviewText = "";
-                    this.rating = 5;
-                },
-            }
-        }
+export default {
+  name: "CourseReviewsPage",
+  components: {
+    StarRating
+  },
+  data() {
+    return {
+      courseCode: "",
+      reviewText: "",
+      rating: 0, // Start with 0 stars
+      result: "",
+      reviews: [],
+      sortBy: "date",
+      helpfulVotes: new Set() // Track which reviews user has voted helpful
+    };
+  },
+  computed: {
+    averageRating() {
+      if (this.reviews.length === 0) return 0;
+      const sum = this.reviews.reduce((total, review) => total + review.rating, 0);
+      return parseFloat((sum / this.reviews.length).toFixed(1));
+    },
+    sortedReviews() {
+      const reviews = [...this.reviews];
+      switch (this.sortBy) {
+        case 'rating':
+          return reviews.sort((a, b) => b.rating - a.rating);
+        case 'helpful':
+          return reviews.sort((a, b) => (b.helpfulCount || 0) - (a.helpfulCount || 0));
+        case 'date':
+        default:
+          return reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+      }
     }
+  },
+  methods: {
+    async fetchReviews() {
+      if (!this.courseCode) {
+        this.result = "Please enter a course code.";
+        return;
+      }
+      try {
+        const response = await fetchCourseReviews(this.courseCode);
+        this.reviews = response.data;
+        this.result = `Fetched ${this.reviews.length} reviews for ${this.courseCode}.`;
+      } catch (error) {
+        this.result = "Failed to fetch reviews.";
+        console.error(error);
+      }
+    },
+  }
+};
 </script>
 
 
