@@ -74,19 +74,61 @@
       </div>
 
         <!-- Display Reviews -->
-        <div v-if="reviews.length > 0" class="mt-4">
-            <h3>Reviews for {{ courseCode }}</h3>
-            <ul class="list-group">
-            <li v-for="(review, index) in reviews" :key="index" class="list-group-item">
-                <strong>Rating:</strong> {{ review.rating }}/5<br />
-                <strong>Review:</strong> {{ review.text }}<br />
-                <small class="text-muted">Submitted on: {{ review.date }}</small>
-            </li>
-            </ul>
+      <div v-if="reviews.length > 0" class="reviews-list">
+        <h3>Reviews for {{ courseCode }}</h3>
+        
+        <!-- Sort Options -->
+        <div class="sort-options mb-3">
+          <label class="mr-2">Sort by:</label>
+          <select v-model="sortBy" class="form-control form-control-sm d-inline-block w-auto">
+            <option value="date">Most Recent</option>
+            <option value="rating">Highest Rating</option>
+            <option value="helpful">Most Helpful</option>
+          </select>
         </div>
-        <div v-else class="mt-4">
-            <p>No reviews found for this course.</p>
+        
+        <ul class="list-group">
+          <li v-for="(review, index) in sortedReviews" :key="index" class="list-group-item review-item">
+            <div class="review-header">
+              <div class="review-rating">
+                <star-rating 
+                  :rating="review.rating" 
+                  :read-only="true"
+                  :star-size="20"
+                  :show-rating="false"
+                  active-color="#ffc107"
+                />
+                <span class="rating-number ml-2">{{ review.rating }}/5</span>
+              </div>
+              <small class="text-muted">Submitted on: {{ review.date }}</small>
+            </div>
+            <div class="review-content mt-2">
+              <p class="review-text">{{ review.text }}</p>
+            </div>
+            <div class="review-footer mt-2">
+              <button 
+                @click="voteHelpful(review.id)" 
+                class="btn btn-sm btn-outline-primary"
+                :class="{ 'btn-primary': review.userVotedHelpful }"
+                :disabled="review.userVotedHelpful"
+              >
+                <i class="fas fa-thumbs-up"></i>
+                Helpful ({{ review.helpfulCount || 0 }})
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div v-else-if="courseCode" class="mt-4 no-reviews">
+        <div class="alert alert-info">
+          <p>No reviews found for {{ courseCode }}. Be the first to review this course!</p>
         </div>
+      </div>
+      <div v-else class="mt-4 no-selection">
+        <div class="alert alert-secondary">
+          <p>Enter a course code above to see or submit reviews.</p>
+        </div>
+      </div>
     </section>
   </b-container>
 </template>
